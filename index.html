@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Networking Assistant for LinkedIn</title>
+<meta name="robots" content="index,follow">
+<style>
+  :root{ --navy:#07366d; --royal:#024da4; --sky:#3fa5e2; --ink:#23303f; --muted:#5b6b7d; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:#f4f7fb; color:var(--ink);
+    font:16px/1.65 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  .wrap{ max-width:760px; margin:0 auto; padding:40px 22px 80px; }
+  header.cn{ background:linear-gradient(120deg,var(--royal),var(--navy)); color:#fff;
+    padding:34px 22px; }
+  header.cn .inner{ max-width:760px; margin:0 auto; }
+  header.cn h1{ margin:0; font-size:26px; }
+  header.cn .brand-sky{ color:var(--sky); }
+  .meta{ color:var(--muted); font-size:14px; margin:18px 0 28px;
+    border-left:3px solid var(--sky); padding:6px 0 6px 14px; background:#fff;
+    border-radius:0 6px 6px 0; }
+  .meta div{ margin:2px 0; }
+  h2{ font-size:19px; color:var(--royal); margin:34px 0 8px; }
+  a{ color:var(--royal); }
+  ul{ padding-left:22px; }
+  li{ margin:6px 0; }
+  code{ background:#eef3f9; padding:1px 5px; border-radius:4px; font-size:13.5px; }
+  footer{ color:var(--muted); font-size:13px; margin-top:48px; border-top:1px solid #dde6f0; padding-top:16px; }
+</style>
+</head>
+<body>
+<header class="cn"><div class="inner">
+  <h1><span class="brand-sky">Networking</span> Assistant for LinkedIn — Privacy Policy</h1>
+</div></header>
+<div class="wrap">
+
+  <div class="meta">
+    <div><strong>Effective date:</strong> June 20, 2026</div>
+    <div><strong>Provided by:</strong> JeannetDevS</div>
+    <div><strong>Contact:</strong> <a href="mailto:chromedev.scientist481@slmails.com">chromedev.scientist481@slmails.com</a></div>
+  </div>
+
+  <p>Networking Assistant for LinkedIn ("the extension") is a browser extension that
+  helps coaching clients work their networking on LinkedIn using their own coaching
+  workbook (a Google Sheet). This policy explains what data the extension accesses,
+  what it sends off your device, and your choices.</p>
+
+  <h2>Data the extension accesses on your device</h2>
+  <ul>
+    <li><strong>Your Google Sheets coaching workbook.</strong> With your permission
+      (Google OAuth, <code>spreadsheets</code> scope only), the extension reads your
+      chosen workbook and writes to its "CALL TRACKER" tab when you click "Add to
+      Call Tracker." It requests <strong>no Google Drive access</strong> — you choose
+      the workbook by pasting its link.</li>
+    <li><strong>Calendly (optional).</strong> If you connect Calendly, the extension
+      reads your scheduled events to show upcoming meetings.</li>
+    <li><strong>LinkedIn pages you view.</strong> While you're on LinkedIn, the
+      extension reads the current page (e.g. a profile's name and public handle, or a
+      job's company) to match against your workbook. This matching happens
+      <strong>locally in your browser</strong>; this page content is <strong>not</strong>
+      sent to our servers.</li>
+  </ul>
+  <p>OAuth tokens, your chosen workbook ID, cached workbook data, and your settings are
+  stored only in your browser's local storage (<code>chrome.storage.local</code>) on
+  your device. You can clear it any time by removing the extension.</p>
+
+  <h2>Data the extension sends to our servers</h2>
+  <p>We operate one backend (Supabase) that we own and control — not a third-party
+  analytics provider. Two things are sent there:</p>
+  <ol>
+    <li><strong>Anonymous usage telemetry (on by default; you can opt out).</strong>
+      To understand which features work and catch errors, the extension sends
+      anonymous events: event names, coarse categories, booleans, counts, durations,
+      error codes, app version, browser, locale, and a <strong>random install
+      identifier</strong> that is not tied to you, your Google account, or your
+      workbook. It is <strong>PII-free by construction</strong>, and our server
+      additionally drops any unexpected fields. We do <strong>not</strong> send: your
+      name, anyone's name, profile links, message text, company or workbook names,
+      sheet IDs, tokens, or email addresses.
+      <strong>Turn it off any time under Settings → Privacy.</strong></li>
+    <li><strong>Feedback you choose to send.</strong> If you use the Settings feedback
+      box, the text you type is sent to us along with the anonymous install identifier
+      and app version. This is free text you author — please include personal details
+      (like your email) only if you want to. You may optionally paste a screenshot; if
+      you do, it is sent and stored with your feedback. Screenshots are entirely
+      optional and only included when you paste one — please avoid capturing other
+      people's personal information you don't intend to share.</li>
+  </ol>
+
+  <h2>What we do not do</h2>
+  <ul>
+    <li>We do not sell or rent your data.</li>
+    <li>We do not use third-party advertising or analytics SDKs.</li>
+    <li>We do not collect your browsing history or activity outside of LinkedIn and the
+      Google/Calendly connections you authorize.</li>
+  </ul>
+
+  <h2>Third parties</h2>
+  <ul>
+    <li><strong>Google</strong> and <strong>Calendly</strong> receive requests directly
+      from your browser under the access you grant; your use of them is governed by
+      their own privacy policies.</li>
+    <li><strong>Supabase</strong> hosts our backend on our behalf as our infrastructure
+      provider.</li>
+  </ul>
+
+  <h2>Data retention</h2>
+  <p>Anonymous telemetry is retained for 365 days and then deleted or aggregated.
+  Feedback is retained until we've acted on it. You can request deletion of feedback
+  you sent by contacting us at
+  <a href="mailto:chromedev.scientist481@slmails.com">chromedev.scientist481@slmails.com</a>.</p>
+
+  <h2>Children</h2>
+  <p>The extension is not directed to children under 13 (or the minimum age in your
+  jurisdiction) and we do not knowingly collect their data.</p>
+
+  <h2>Changes</h2>
+  <p>We may update this policy; material changes will be reflected here with a new
+  effective date.</p>
+
+  <h2>Contact</h2>
+  <p>Questions or requests:
+  <a href="mailto:chromedev.scientist481@slmails.com">chromedev.scientist481@slmails.com</a>.</p>
+
+  <footer>Networking Assistant for LinkedIn · Privacy Policy · Last updated June 20, 2026</footer>
+</div>
+</body>
+</html>
