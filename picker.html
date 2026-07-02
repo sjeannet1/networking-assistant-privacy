@@ -65,7 +65,10 @@
           .setSelectFolderEnabled(false)
           .setMode(google.picker.DocsViewMode.LIST);
         const builder = new google.picker.PickerBuilder()
-          .setOrigin(window.location.protocol + "//" + window.location.host)
+          // The Picker validates against the TOP-most window's origin. This page
+          // runs inside an iframe embedded by the packaged extension page, so the
+          // top origin is the extension, not this github.io page.
+          .setOrigin(EXT_ORIGIN)
           .addView(view)
           .setOAuthToken(token)
           .setDeveloperKey(DEVELOPER_KEY)
