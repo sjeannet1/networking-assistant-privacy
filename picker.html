@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Workbook picker</title>
+  <meta name="referrer" content="no-referrer" />
+  <style>
+    html, body { margin: 0; height: 100%; font: 13px -apple-system, Segoe UI, Roboto, sans-serif; color: #1b2733; }
+    #msg { padding: 14px; color: #5a6b7b; }
+  </style>
+</head>
+<body>
+  <div id="msg">Loading the Google Picker…</div>
+
+  <!-- Google Picker loader. This page is hosted on GitHub Pages (an ordinary web
+       origin), so it may load remote Google JS — which is exactly why the picker
+       lives here rather than inside the MV3 extension. -->
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script>
+  (() => {
+    "use strict";
+
+    // ---- Fill these in from your Google Cloud project (same project as the
+    // extension's OAuth client) -------------------------------------------------
+    // Browser API key, restricted to the HTTP referrer https://sjeannet1.github.io/*
+    const DEVELOPER_KEY = "AIzaSyAux9SWPMjuWtTxDM2zJuLwkIJnctu7UIQ";
+    // Project number (Cloud Console → project settings). Optional but recommended.
+    const APP_ID = "PASTE_PROJECT_NUMBER_HERE";
+    // ---------------------------------------------------------------------------
+
+    // The extension page that embeds this one. Pinned so we only ever accept the
+    // token from — and post the result to — the real extension. This id is fixed
+    // by the manifest "key", so it's identical on every install.
+    const EXT_ORIGIN = "chrome-extension://ldhdcimcfljhcfikldmngkodpmhnkdfj";
+
+    const msg = document.getElementById("msg");
+    const toExt = (m) => window.parent && window.parent.postMessage(m, EXT_ORIGIN);
+
+    let pickerReady = false;
+    let pendingToken = null;
+
+    // Load the Picker library, then tell the extension we're ready for the token.
+    gapi.load("picker", () => {
+      pickerReady = true;
+      if (pendingToken) showPicker(pendingToken);
+      else toExt({ type: "cn-picker-ready" });
+    });
+
+    // Receive the OAuth token from the extension and open the Picker.
+    window.addEventListener("message", (e) => {
+      if (e.origin !== EXT_ORIGIN) return; // only trust the extension
+      const data = e.data || {};
+      if (data.type === "cn-picker-init" && data.token) {
+        if (pickerReady) showPicker(data.token);
+        else pendingToken = data.token; // library not loaded yet; open when it is
+      }
+    });
+
+    function showPicker(token) {
+      try {
+        // Spreadsheets only; the drive.file grant attaches to whatever is picked.
+        const view = new google.picker.DocsView(google.picker.ViewId.SPREADSHEETS)
+          .setSelectFolderEnabled(false)
+          .setMode(google.picker.DocsViewMode.LIST);
+        const builder = new google.picker.PickerBuilder()
+          .setOrigin(window.location.protocol + "//" + window.location.host)
+          .addView(view)
+          .setOAuthToken(token)
+          .setDeveloperKey(DEVELOPER_KEY)
+          .setTitle("Choose your coaching workbook")
+          .setCallback(onPicked);
+        if (APP_ID && !/PASTE_/.test(APP_ID)) builder.setAppId(APP_ID);
+        builder.build().setVisible(true);
+        msg.textContent = "";
+      } catch (err) {
+        toExt({ type: "cn-picker-error", message: String(err && err.message || err) });
+      }
+    }
+
+    function onPicked(data) {
+      const a = data[google.picker.Response.ACTION];
+      if (a === google.picker.Action.PICKED) {
+        const doc = data[google.picker.Response.DOCUMENTS][0] || {};
+        toExt({ type: "cn-picker-result", id: doc.id, name: doc.name || "" });
+      } else if (a === google.picker.Action.CANCEL) {
+        toExt({ type: "cn-picker-cancel" });
+      }
+    }
+  })();
+  </script>
+</body>
+</html>
